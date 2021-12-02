@@ -1,3 +1,5 @@
+#ifndef __L_STACK__
+#define __L_STACK__
 #define Assert(val, s)                             \
     if (!(val))                                    \
     {                                              \
@@ -29,3 +31,4 @@ public:
     virtual const E &topValue() const = 0;
     virtual void setDirection(int direction) = 0;
 };
+#endif

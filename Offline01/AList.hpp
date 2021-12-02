@@ -15,6 +15,17 @@ private:
     int listSize;
     int curr;
     T *listArray;
+    void realloc(int size)
+    {
+        T *temp = new T[size];
+        for (int i = 0; i < maxSize; i++)
+        {
+            temp[i] = listArray[i];
+        }
+        maxSize = size;
+        delete[] listArray;
+        listArray = temp;
+    }
 
 public:
     AList(int maxSize = defaultSize)
@@ -50,15 +61,8 @@ public:
     { // Insert "it" at current position
         if (listSize == maxSize)
         {
-            // Reallocating memory to store double elements
-            T *temp = new T[maxSize + chunk];
-            for (int i = 0; i < maxSize; i++)
-            {
-                temp[i] = listArray[i];
-            }
-            maxSize += chunk;
-            delete[] listArray;
-            listArray = temp;
+            // Reallocating memory to store more elements
+            realloc(maxSize + chunk);
         }
         for (int i = listSize; i > curr; i--) // Shift elements up
         {
@@ -72,15 +76,8 @@ public:
     { // Append "it"
         if (listSize == maxSize)
         {
-            // Reallocating memory to store double elements
-            T *temp = new T[maxSize + chunk];
-            for (int i = 0; i < maxSize; i++)
-            {
-                temp[i] = listArray[i];
-            }
-            maxSize += chunk;
-            delete[] listArray;
-            listArray = temp;
+            // Reallocating memory to store more elements
+            realloc(maxSize + chunk);
         }
         listArray[listSize++] = it;
     }

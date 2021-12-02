@@ -1,3 +1,5 @@
+#ifndef __A_STACK__
+#define __A_STACK__
 #include <iostream>
 #include "Stack.hpp"
 using namespace std;
@@ -12,58 +14,48 @@ private:
     E *listArray; // Array holding stack elements
     int dir;
     int chunk;
+    void realloc(int size)
+    {
+        // Reallocating memory to store more elements
+        E *temp = new E[size];
+
+        for (int i = 0; i < maxSize; i++)
+        {
+            if (dir == 1)
+                temp[i] = listArray[i];
+            else
+                temp[maxSize + i] = listArray[i];
+        }
+        maxSize = size;
+        delete[] listArray;
+        listArray = temp;
+    }
 
 public:
     AStack(int size = defaultSize) // Constructor
     {
         chunk = maxSize = size;
+        dir = 1;
         top = 0;
         listArray = new E[size];
-        dir = 1;
     }
-    AStack(int *arr, int direction, int size = defaultSize) // Constructor
+    AStack(E *arr, int direction, int size = defaultSize) // Constructor
     {
         chunk = maxSize = size;
-        if (dir == 1)
-        {
-            top = 0;
-        }
-        else
-        {
-            top = maxSize - 1;
-        }
-        listArray = arr;
         dir = direction;
+        top = (dir == 1 ? 0 : maxSize - 1);
+        listArray = arr;
     }
     ~AStack() { delete[] listArray; } // Destructor
     void clear()
     {
-        if (dir == 1)
-        {
-            top = 0;
-        }
-        else
-        {
-            top = maxSize - 1;
-        }
+        top = (dir == 1 ? 0 : maxSize - 1);
     } // Reinitialize
     void push(const E &it)
     { // Put "it" on stack
         if (length() == maxSize)
         {
-            // Reallocating memory to store more elements
-            E *temp = new E[maxSize + chunk];
-
-            for (int i = 0; i < maxSize; i++)
-            {
-                if (dir == 1)
-                    temp[i] = listArray[i];
-                else
-                    temp[maxSize + i] = listArray[i];
-            }
-            maxSize += chunk;
-            delete[] listArray;
-            listArray = temp;
+            realloc(maxSize + chunk);
         }
         listArray[top] = it;
         top += dir;
@@ -78,24 +70,15 @@ public:
         Assert(length() > 0, "Stack is empty");
         return listArray[top - dir];
     }
-    int length() const
+    int length() const // Return length
     {
-        if (dir == 1)
-            return top;
-        else
-            return maxSize - top - 1;
-    } // Return length
+        return (dir == 1 ? top : maxSize - 1 - top);
+    }
     void setDirection(int direction)
     {
         Assert(length() == 0, "Stack is not Empty");
         dir = direction;
-        if (dir == 1)
-        {
-            top = 0;
-        }
-        else
-        {
-            top = maxSize - 1;
-        }
+        top = (dir == 1 ? 0 : maxSize - 1);
     }
 };
+#endif

@@ -9,11 +9,16 @@ class LStack : public Stack<E>
 private:
     Link<E> *top; // Pointer to first element
     int size;     // Number of elements
-public:
-    LStack(int sz = 0) // Constructor
+    void init()
     {
         top = NULL;
         size = 0;
+    }
+
+public:
+    LStack(int size = 0) // Constructor
+    {
+        init();
     }
     ~LStack() { clear(); } // Destructor
     void clear()
