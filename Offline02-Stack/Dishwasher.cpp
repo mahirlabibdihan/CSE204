@@ -52,7 +52,7 @@ int main()
             {
                 tmp.t = dirty->topValue().t - 1 + a[dirty->topValue().s - 1];
             }
-            else if (t >= clean->topValue().t)
+            else if (t > clean->topValue().t)
             {
                 if (dirty->topValue().t > clean->topValue().t)
                 {
@@ -117,7 +117,7 @@ int main()
         tmp->pop();
         if (tmp->length() > 0)
         {
-            cout << ", ";
+            cout << ",";
         }
     }
     cout << endl;
@@ -131,18 +131,44 @@ int main()
         fullMeal->pop();
         if (fullMeal->length() > 0)
         {
-            cout << ", ";
+            cout << ",";
         }
     }
     cout << endl;
 }
+
 /*
-5 3
-4 3 6
-5 0 1
-2 1 1
-5 2 3
-4 3 3
-5 4 2
+Test Case 1:
+Input:
+3 3
+2 4 1
+1 0 1
+3 1 1
+2 5 1
+1 7 2
+3 8 2
+3 10 3
 0 0 0
+Output:
+15
+1, 3, 6, 10, 11, 15
+N
+3
+Test Case 2:
+Input:
+3 3
+2 4 1
+1 0 1
+3 1 1
+2 5 1
+1 7 2
+3 8 2
+3 10 3
+1 17 3
+0 0 0
+Output:
+17
+1,3,6,10,11,15,17
+N
+1,3
 */

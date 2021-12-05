@@ -4,7 +4,32 @@
 #include "Link.hpp"
 #include "List.hpp"
 using namespace std;
+/*
+In this implementation we are actually pointing the previous node of the current element.
+Because when we will remove an element we will need the pointer to the previous node.
+We can get the previous node also by traversing from the beginning but that will take extra O(n) time.
+To avoid that we will always point to the previous node.
+So, when when current element is the first one we have to point to the previous node. 
+So we need to take an extra head node. This node will be available in the empty list.
+*/
+/* 
+Assume,curr pointer = ^
+            head->[0th element]->[1th]->[2th]->........->tail[n-1 th]->NULL
+Currpos=0:   ^
+Currpos=1:              ^
+Remove:     head->[0th element]->[2th]->........->[n-2 th]->tail[n-1 th]->NULL
+            head->[0th element]->[1th]->........->[n-2 th]->tail[n-1 th]->NULL
+                        ^
+Insert:     head->[0th element]->[1th]->[2th]->........->[n-2 th]->tail[n-1 th]->NULL
+                        ^
+Currpos=n-1:                                                  ^
+Remove:     head->[0th element]->[1th]->[2th]->........->[n-3th]->tail[n-2 th]->NULL
+                                                                            ^
+            head->[0th element]->[1th]->[2th]->........->[n-2th]->tail[n-1 th]->NULL
+                                                              ^      (curr pointer steps back.If the next node of curr pointer is NULL,then remove operation will be failed.)
+                                                     
 
+*/
 // Linked list implementation
 template <typename T>
 class LList : public List<T>
@@ -69,7 +94,8 @@ public:
     T remove()
     {
         // Remove and return current value
-        if (curr->next == NULL)
+
+        if (curr->next == NULL) // Next node of curr pointer is NULL. This is only possible when the list is empty.
         {
             cout << "No element" << endl;
             exit(-1);
@@ -78,14 +104,14 @@ public:
         Link<T> *ltemp = curr->next; // Remember link node
         if (tail == curr->next)
         {
-            tail = curr;
+            tail = curr; // If we are deleting the last element(which is also tail),the tail pointer will step back
         }
         curr->next = curr->next->next;
         delete ltemp;
         listSize--;
-        if (curr->next == NULL)
+        if (curr->next == NULL) // If the last element is deleted, curr pointer will step back
         {
-            if (curr != head)
+            if (curr != head) // Until it was also the first element. because if first element got deleted we can't step back
             {
                 this->prev();
             }
