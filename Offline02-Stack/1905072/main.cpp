@@ -3,7 +3,6 @@ template <typename T>
 void print(Stack<T> *s)
 {
     Stack<T> *tmp = new LStack<T>(s->length());
-    cout << s->length() << endl;
     cout << "<";
     while (s->length() > 0)
     {
@@ -57,7 +56,7 @@ int main()
             print(s);
             cout << -1 << endl;
             break;
-        case 3: // remove
+        case 3: // pop
             tmp = s->pop();
             print(s);
             cout << tmp << endl;

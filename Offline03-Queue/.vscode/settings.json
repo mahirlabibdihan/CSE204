@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "cstdlib": "cpp",
+    "iostream": "cpp",
+    "utility": "cpp",
+    "xlocale": "cpp",
+    "xlocnum": "cpp",
+    "iosfwd": "cpp"
+  }
+}

@@ -3,7 +3,6 @@ template <typename T>
 void print(Stack<T> *s)
 {
     Stack<T> *tmp = new LStack<T>(s->length());
-    cout << s->length() << endl;
     cout << "<";
     while (s->length() > 0)
     {
@@ -21,6 +20,7 @@ void print(Stack<T> *s)
         }
     }
     cout << ">" << endl;
+    delete tmp;
 }
 
 int main()

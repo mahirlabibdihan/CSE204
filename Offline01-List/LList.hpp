@@ -199,6 +199,7 @@ public:
             }
             temp = temp->next;
         }
+        delete temp;
         return -1; // item not found
     }
 };

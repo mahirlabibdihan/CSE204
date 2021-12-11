@@ -7,7 +7,7 @@
         exit(-1);                                  \
     }
 // Stack abtract class
-template <typename E>
+template <typename T>
 class Stack
 {
 private:
@@ -21,14 +21,14 @@ public:
     virtual void clear() = 0;
     // Push an element onto the top of the stack.
     // it: The element being pushed onto the stack.
-    virtual void push(const E &it) = 0;
+    virtual void push(const T &it) = 0;
     // Remove the element at the top of the stack.
     // Return: The element at the top of the stack.
-    virtual E pop() = 0;
+    virtual T pop() = 0;
     // Return: The number of elements in the stack.
     virtual int length() const = 0;
     // Return: A copy of the top element.
-    virtual const E &topValue() const = 0;
+    virtual const T &topValue() const = 0;
     virtual void setDirection(int direction) = 0;
 };
 #endif

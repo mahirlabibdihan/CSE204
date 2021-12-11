@@ -30,6 +30,7 @@ int main()
     // Friends who have taken full meal
     Stack<int> *fullMeal = new AStack<int>();
 
+    // Loop of washing dishes
     while (true)
     {
         int k, t, s;
@@ -43,6 +44,9 @@ int main()
         {
             fullMeal->push(k);
         }
+
+        // Before pushing new dirty dishes in the dirty stack we have to wash the older dishes.
+        // So before each we will check if the current top dish should be taken to wash or not
         while (dirty->length() > 0)
         {
             Dish tmp = dirty->topValue();

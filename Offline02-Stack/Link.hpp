@@ -1,12 +1,12 @@
 // Singly linked list node
-template <typename E>
+template <typename T>
 class Link
 {
 public:
-    E element;  // Value for this node
+    T element;  // Value for this node
     Link *next; // Pointer to next node in list
     // Constructors
-    Link(const E &elemval, Link *nextval = NULL)
+    Link(const T &elemval, Link *nextval = NULL)
     {
         element = elemval;
         next = nextval;

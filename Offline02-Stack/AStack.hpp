@@ -4,20 +4,19 @@
 #include "Stack.hpp"
 using namespace std;
 // Array-based stack implementation
-template <typename E>
-class AStack : public Stack<E>
+template <typename T>
+class AStack : public Stack<T>
 {
 private:
     static const int defaultSize = 10;
     int maxSize;  // Maximum size of stack
     int top;      // Index for top element
-    E *listArray; // Array holding stack elements
+    T *listArray; // Array holding stack elements
     int dir;
-    int chunk;
     void realloc(int size)
     {
         // Reallocating memory to store more elements
-        E *temp = new E[size];
+        T *temp = new T[size];
 
         for (int i = 0; i < maxSize; i++)
         {
@@ -34,14 +33,14 @@ private:
 public:
     AStack(int size = defaultSize) // Constructor
     {
-        chunk = maxSize = size;
+        maxSize = size;
         dir = 1;
         top = 0;
-        listArray = new E[size];
+        listArray = new T[size];
     }
-    AStack(E *arr, int direction, int size = defaultSize) // Constructor
+    AStack(T *arr, int direction, int size = defaultSize) // Constructor
     {
-        chunk = maxSize = size;
+        maxSize = size;
         dir = direction;
         top = (dir == 1 ? 0 : maxSize - 1);
         listArray = arr;
@@ -51,21 +50,21 @@ public:
     {
         top = (dir == 1 ? 0 : maxSize - 1);
     } // Reinitialize
-    void push(const E &it)
+    void push(const T &it)
     { // Put "it" on stack
         if (length() == maxSize)
         {
-            realloc(maxSize + chunk);
+            realloc(2 * maxSize);
         }
         listArray[top] = it;
         top += dir;
     }
-    E pop()
+    T pop()
     { // Pop top element
         Assert(length() > 0, "Stack is empty");
         return listArray[top -= dir];
     }
-    const E &topValue() const
+    const T &topValue() const
     { // Return top element
         Assert(length() > 0, "Stack is empty");
         return listArray[top - dir];
