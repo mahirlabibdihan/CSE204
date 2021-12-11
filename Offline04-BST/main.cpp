@@ -5,7 +5,7 @@ using namespace std;
 #include "BST.hpp"
 int main()
 {
-    BST<int, int> *bst = new BST<int, int>();
+    BinTree<int> *bst = new BST<int>();
     ifstream in("input.txt");
     while (!in.eof())
     {
@@ -17,14 +17,14 @@ int main()
         {
         case 'F':
             in >> n;
-            if (bst->find(n))
-                cout << "True" << endl;
-            else
+            if (bst->find(n) == NULL)
                 cout << "False" << endl;
+            else
+                cout << "True" << endl;
             break;
         case 'I':
             in >> n;
-            bst->insert(n, n);
+            bst->insert(n);
             bst->print();
             break;
         case 'T':
