@@ -9,8 +9,29 @@ protected:
     BinNode<E> *root; // Root of the BinTree
     int nodecount;    // Number of nodes in the BinTree
     // Private "helper" functions
-    void printhelp(BinNode<E> *) const;
-    void clearhelp(BinNode<E> *);
+    void clearhelp(BinNode<E> *root)
+    {
+        if (root == NULL)
+            return;
+        clearhelp(root->left());
+        clearhelp(root->right());
+        delete root;
+    }
+    void printhelp(BinNode<E> *root) const
+    {
+        if (root == NULL)
+            return;              // Empty tree
+        cout << root->element(); // Print node value
+        if (root->isLeaf())
+            return;
+        cout << '(';
+        printhelp(root->left()); // Do left subtree
+        cout << ')';
+
+        cout << '(';
+        printhelp(root->right()); // Do right subtree
+        cout << ')';
+    }
     virtual BinNode<E> *inserthelp(BinNode<E> *, const E &) = 0;
     virtual BinNode<E> *removehelp(BinNode<E> *, const E &) = 0;
     virtual BinNode<E> *findhelp(BinNode<E> *, const E &) const = 0;
@@ -57,6 +78,22 @@ public:
     BinNode<E> *find(const E &it) const { return findhelp(root, it); }
     // Return the number of records in the dictionary.
     int size() { return nodecount; }
+    int height(BinNode<E> *root)
+    {
+        if (root == NULL)
+        {
+            return -1;
+        }
+        else
+        {
+            /* compute the depth of each subtree */
+            int lDepth = height(root->left());
+            int rDepth = height(root->right());
+
+            /* use the larger one */
+            return max(lDepth, rDepth) + 1;
+        }
+    }
     void print() const
     { // Print the contents of the BinTree
         if (root == NULL)
@@ -90,30 +127,4 @@ public:
         cout << endl;
     }
 };
-
-template <typename E>
-void BinTree<E>::clearhelp(BinNode<E> *root)
-{
-    if (root == NULL)
-        return;
-    clearhelp(root->left());
-    clearhelp(root->right());
-    delete root;
-}
-template <typename E>
-void BinTree<E>::printhelp(BinNode<E> *root) const
-{
-    if (root == NULL)
-        return;              // Empty tree
-    cout << root->element(); // Print node value
-    if (root->isLeaf())
-        return;
-    cout << '(';
-    printhelp(root->left()); // Do left subtree
-    cout << ')';
-
-    cout << '(';
-    printhelp(root->right()); // Do right subtree
-    cout << ')';
-}
 #endif
