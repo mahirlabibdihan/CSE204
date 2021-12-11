@@ -140,6 +140,8 @@ bool dequeueCustomer(Queue<Customer> *q1, Queue<Customer> *q2, int &q1Time, int 
     }
     return true;
 }
+// Enqueue customer in any of the queue
+// c: The customer being enqueued
 void enqueueCustomer(Queue<Customer> *q1, Queue<Customer> *q2, int &q1Time, int &q2Time, Customer &c)
 {
     if (q2->length() < q1->length())

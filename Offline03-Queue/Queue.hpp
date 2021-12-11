@@ -24,7 +24,7 @@ public:
     virtual void clear() = 0;
     // Place an element at the rear of the queue.
     // it: The element being enqueued.
-    virtual void enqueue(const T &) = 0;
+    virtual void enqueue(const T &it) = 0;
     // Remove and return element at the front of the queue.
     // Return: The element at the front of the queue.
     virtual T dequeue() = 0;

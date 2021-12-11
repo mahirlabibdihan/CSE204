@@ -1,0 +1,18 @@
+{
+  "files.associations": {
+    "bit": "cpp",
+    "iterator": "cpp",
+    "memory": "cpp",
+    "tuple": "cpp",
+    "utility": "cpp",
+    "xiosbase": "cpp",
+    "xlocale": "cpp",
+    "xmemory": "cpp",
+    "xstring": "cpp",
+    "xutility": "cpp",
+    "ios": "cpp",
+    "ostream": "cpp",
+    "xlocnum": "cpp",
+    "iostream": "cpp"
+  }
+}
