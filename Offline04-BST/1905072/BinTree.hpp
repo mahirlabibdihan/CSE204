@@ -76,7 +76,7 @@ public:
         return temp > size();
     }
     // Return some node matching 'it', NULL if none exist.
-    // If multiple nodes match "k", return an arbitrary one.
+    // If multiple nodes match 'it', return an arbitrary one.
     BinNode<E> *find(const E &it) const { return findhelp(root, it); }
     // Return the number of nodes in the tree.
     int size() { return nodecount; }

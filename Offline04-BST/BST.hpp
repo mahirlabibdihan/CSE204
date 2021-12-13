@@ -59,7 +59,7 @@ private:
         }
         if (it < root->element())
         {
-            // Target node is smaller then current node, so go left
+            // Target node is smaller than current node, so go left
             if (root->left() != NULL) // To avoid extra call
             {
                 root->setLeft(removehelp(root->left(), it)); // Check left
@@ -67,7 +67,7 @@ private:
         }
         else if (it > root->element())
         {
-            // Target node is greater the current node, so go right
+            // Target node is greater than current node, so go right
             if (root->right() != NULL) // To avoid extra call
             {
                 root->setRight(removehelp(root->right(), it)); // Check right
