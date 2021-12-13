@@ -1,11 +1,11 @@
 #ifndef __BIN_TREE__
 #define __BIN_TREE__
 #include "BinNode.hpp"
-// Binary Search Tree implementation for the Dictionary ADT
+// Binary Tree implementation
 template <typename E>
 class BinTree
 {
-protected:
+public:
     BinNode<E> *root; // Root of the BinTree
     int nodecount;    // Number of nodes in the BinTree
     // Private "helper" functions
@@ -13,23 +13,30 @@ protected:
     {
         if (root == NULL)
             return;
-        clearhelp(root->left());
-        clearhelp(root->right());
+        if (root->left() != NULL)     // To avoid extra call
+            clearhelp(root->left());  // Clear left subtree
+        if (root->right() != NULL)    // To avoid extra call
+            clearhelp(root->right()); // Clear right subtree
         delete root;
     }
+    // Preorder print
     void printhelp(BinNode<E> *root) const
     {
         if (root == NULL)
             return;              // Empty tree
         cout << root->element(); // Print node value
-        if (root->isLeaf())
+
+        if (root->isLeaf()) // If it's leaf, no need to print its empty childs
             return;
+
         cout << '(';
-        printhelp(root->left()); // Do left subtree
+        if (root->left() != NULL)    // To avoid extra call
+            printhelp(root->left()); // Go left subtree
         cout << ')';
 
         cout << '(';
-        printhelp(root->right()); // Do right subtree
+        if (root->right() != NULL)    // To avoid extra call
+            printhelp(root->right()); // Go right subtree
         cout << ')';
     }
     virtual BinNode<E> *inserthelp(BinNode<E> *, const E &) = 0;
@@ -37,71 +44,52 @@ protected:
     virtual BinNode<E> *findhelp(BinNode<E> *, const E &) const = 0;
 
 public:
+    // Constructor
     BinTree()
     {
         root = NULL;
         nodecount = 0;
-    }                                       // Constructor
-    virtual ~BinTree() { clearhelp(root); } // Destructor
-    void clear()                            // Reinitialize tree
+    }
+    // Destructor
+    virtual ~BinTree() { clearhelp(root); }
+    // Reinitialize tree
+    void clear()
     {
         clearhelp(root);
-        root = NULL;
+        root = NULL; // Because root now has garbage value, so setting it to NULL
         nodecount = 0;
     }
-    // Insert a record into the tree.
-    // k Key value of the record.
-    // e The record to insert.
+    // Insert a node into the tree.
+    // it: Value of the node to insert.
     void insert(const E &it)
     {
         root = inserthelp(root, it);
-        nodecount++;
+        nodecount++; // Increasing total node count
     }
-    // Remove a record from the tree.
-    // k Key value of record to remove.
-    // Return: The record removed, or NULL if there is none.
-    BinNode<E> *remove(const E &it)
+    // Remove a node from the tree.
+    // it: Value of node to remove.
+    // Return: True if removed, false otherwise.
+    bool remove(const E &it)
     {
-        BinNode<E> *temp = findhelp(root, it); // First find it
-        if (temp != NULL)
-        {
-            root = removehelp(root, it);
-            nodecount--;
-        }
-        return temp;
+        int temp = size();
+        root = removehelp(root, it);
+        return temp > size();
     }
-    // Return Record with key value k, NULL if none exist.
-    // k: The key value to find. */
-    // Return some record matching "k".
-    // Return true if such exists, false otherwise. If
-    // multiple records match "k", return an arbitrary one.
+    // Return some node matching 'it', NULL if none exist.
+    // If multiple nodes match "k", return an arbitrary one.
     BinNode<E> *find(const E &it) const { return findhelp(root, it); }
-    // Return the number of records in the dictionary.
+    // Return the number of nodes in the tree.
     int size() { return nodecount; }
-    int height(BinNode<E> *root)
-    {
-        if (root == NULL)
-        {
-            return -1;
-        }
-        else
-        {
-            /* compute the depth of each subtree */
-            int lDepth = height(root->left());
-            int rDepth = height(root->right());
-
-            /* use the larger one */
-            return max(lDepth, rDepth) + 1;
-        }
-    }
+    // Print the contents of the tree.
     void print() const
-    { // Print the contents of the BinTree
+    {
         if (root == NULL)
             cout << "The Tree is empty";
         else
             printhelp(root);
         cout << endl;
     }
+    // Inorder traversal - left->root->right.
     void inorder() const
     {
         if (root == NULL)
@@ -110,6 +98,7 @@ public:
             root->inorder();
         cout << endl;
     }
+    // Preorder traversal - root->left->right.
     void preorder() const
     {
         if (root == NULL)
@@ -118,6 +107,7 @@ public:
             root->preorder();
         cout << endl;
     }
+    // Postorder traversal - left->right->root.
     void postorder() const
     {
         if (root == NULL)

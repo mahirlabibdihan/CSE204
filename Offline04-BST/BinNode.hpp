@@ -17,7 +17,8 @@ public:
         leftChild = l;
         rightChild = r;
     }
-    ~BinNode() {} // Destructor
+    // Destructor
+    ~BinNode() {}
     // Functions to set and return the value and key
     const E &element() const { return it; }
     void setElement(const E &e) { it = e; }
@@ -27,7 +28,7 @@ public:
     void setLeft(BinNode<E> *b) { leftChild = b; }
     inline BinNode<E> *right() const { return rightChild; }
     void setRight(BinNode<E> *b) { rightChild = b; }
-    // Return true if it is a leaf, false otherwise
+    // Return: true if it is a leaf, false otherwise
     bool isLeaf() const { return (leftChild == NULL) && (rightChild == NULL); }
     // Inorder traversal
     void inorder() const
