@@ -12,20 +12,20 @@ private:
     // Private "helper" functions
     void clearhelp(BinNode<E> *root)
     {
-        if (root == NULL)
+        if (root == NULL) // Empty subtree, do nothing
             return;
         if (root->left() != NULL)     // To avoid extra call
             clearhelp(root->left());  // Clear left subtree
         if (root->right() != NULL)    // To avoid extra call
             clearhelp(root->right()); // Clear right subtree
-        delete root;
+        delete root;                  // Deallocate memory
     }
     // Preorder print
     void printhelp(BinNode<E> *root) const
     {
-        if (root == NULL)
-            return;              // Empty tree
-        cout << root->element(); // Print node value
+        if (root == NULL) // Empty subtree, do nothing
+            return;
+        cout << root->element(); // Print record
 
         if (root->isLeaf()) // If it's leaf, no need to print its empty childs
             return;

@@ -10,7 +10,7 @@ class BST : public BinTree<E>
 private:
     BinNode<E> *inserthelp(BinNode<E> *root, const Key &k, const E &e)
     {
-        if (root == NULL) // Empty tree: create node
+        if (root == NULL) // Empty subtree: create node
             return new BSTNode<Key, E>(k, e, NULL, NULL);
         if (k < ((BSTNode<Key, E> *)root)->key())
         { // 'k' is smaller than current node, so go left
@@ -57,7 +57,7 @@ private:
     {
         if (root->right() == NULL)
         { // Found max
-            // min has either left child or no child
+            // max has either left child or no child
             if (root->left() == NULL) // No child
             {
                 return NULL;
@@ -161,6 +161,7 @@ private:
 public:
     BST() {}  // Constructor
     ~BST() {} // Destructor
+
     // Insert a record into the tree.
     // k: Key value of the record.
     // e: The record to insert.
@@ -169,6 +170,7 @@ public:
         this->root = inserthelp(this->root, k, e);
         this->nodecount++; // Increasing total node count
     }
+
     // Remove a record from the tree.
     // k: Key value of the record to remove
     // Return: The record removed, or NULL if there is none.
@@ -182,6 +184,7 @@ public:
         }
         return temp;
     }
+
     // Remove and return the root node from the dictionary.
     // Return: The record removed, null if tree is empty.
     E removeAny()
@@ -196,6 +199,7 @@ public:
         else
             return (E)NULL;
     }
+
     // Return Record with key value 'k', NULL if none exist.
     // If multiple nodes match 'k', return an arbitrary one.
     E find(const Key &k) const

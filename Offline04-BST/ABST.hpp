@@ -1,11 +1,10 @@
-#ifndef __BST__
-#define __BST__
-#include "BinTree.hpp"
-#include "BSTNode.hpp"
+#ifndef __A_BST__
+#define __A_BST__
+#include "ABinTree.hpp"
 
 // Binary Search Tree implementation
 template <typename Key, typename E>
-class BST : public BinTree<E>
+class BST : public ABinTree<E>
 {
 private:
     BinNode<E> *inserthelp(BinNode<E> *root, const Key &k, const E &e)
@@ -167,8 +166,8 @@ public:
     // e: The record to insert.
     void insert(const Key &k, const E &e)
     {
-        this->root = inserthelp(this->root, k, e);
-        this->nodecount++; // Increasing total node count
+        inserthelp(0, k, e);
+        this->n++; // Increasing total node count
     }
 
     // Remove a record from the tree.
@@ -180,31 +179,16 @@ public:
         if (temp != (E)NULL)
         {
             this->root = removehelp(this->root, k);
-            this->nodecount--;
+            this->n--;
         }
         return temp;
-    }
-
-    // Remove and return the root node from the dictionary.
-    // Return: The record removed, null if tree is empty.
-    E removeAny()
-    { // Delete min value
-        if (this->root != NULL)
-        {
-            E temp = getMin(this->root)->element();
-            this->root = deleteMin(this->root);
-            this->nodecount--;
-            return temp;
-        }
-        else
-            return (E)NULL;
     }
 
     // Return Record with key value 'k', NULL if none exist.
     // If multiple nodes match 'k', return an arbitrary one.
     E find(const Key &k) const
     {
-        return findhelp(this->root, k);
+        return findhelp(0, k);
     }
 };
 #endif

@@ -39,7 +39,7 @@ int main()
             break;
         case 'D':
             in >> n;
-            if (!bst->remove(n))
+            if (bst->remove(n) == (int)NULL)
                 cout << "Invalid Operation" << endl;
             else
                 bst->print();

@@ -1,13 +1,13 @@
-#ifndef __BIN_NODE__
-#define __BIN_NODE__
+#ifndef __A_BIN_NODE__
+#define __A_BIN_NODE__
 // Simple binary tree node implementation
 template <typename E>
-class BinNode
+class ABinNode
 {
 protected:
-    E it;                   // The node’s value
-    BinNode<E> *leftChild;  // Pointer to leftChild child
-    BinNode<E> *rightChild; // Pointer to right child
+    E it; // The node’s value
+    int pos;
+
 public:
     // Two constructors -- with and without initial values
     BinNode()
@@ -27,9 +27,9 @@ public:
     void setElement(const E &e) { it = e; }
 
     // Functions to set and return the children
-    BinNode<E> *left() const { return leftChild; }
+    int left() const { return leftChild; }
     void setLeft(BinNode<E> *lc) { leftChild = lc; }
-    BinNode<E> *right() const { return rightChild; }
+    int right() const { return rightChild; }
     void setRight(BinNode<E> *rc) { rightChild = rc; }
     // Return: true if it is a leaf, false otherwise
     bool isLeaf() const { return (leftChild == NULL) && (rightChild == NULL); }
