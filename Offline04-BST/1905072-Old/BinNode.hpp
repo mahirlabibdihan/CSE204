@@ -4,7 +4,7 @@
 template <typename E>
 class BinNode
 {
-protected:
+private:
     E it;                   // The node’s value
     BinNode<E> *leftChild;  // Pointer to leftChild child
     BinNode<E> *rightChild; // Pointer to right child
@@ -21,16 +21,16 @@ public:
         rightChild = r;
     }
     // Destructor
-    virtual ~BinNode() {}
+    ~BinNode() {}
     // Functions to set and return the value and key
     const E &element() const { return it; }
     void setElement(const E &e) { it = e; }
 
     // Functions to set and return the children
     inline BinNode<E> *left() const { return leftChild; }
-    void setLeft(BinNode<E> *lc) { leftChild = lc; }
+    void setLeft(BinNode<E> *b) { leftChild = b; }
     inline BinNode<E> *right() const { return rightChild; }
-    void setRight(BinNode<E> *rc) { rightChild = rc; }
+    void setRight(BinNode<E> *b) { rightChild = b; }
     // Return: true if it is a leaf, false otherwise
     bool isLeaf() const { return (leftChild == NULL) && (rightChild == NULL); }
     // Inorder traversal
