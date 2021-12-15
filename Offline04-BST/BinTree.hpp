@@ -61,6 +61,39 @@ private:
             return 0; // Nothing to count
         return 1 + count(root->left()) + count(root->right());
     }
+    int postorderhelp(BinNode<E> *root, E *arr, int idx) const
+    {
+        if (root == NULL)
+            return idx;
+        if (root->left() != NULL) // To avoid extra call
+            idx = postorderhelp(root->left(), arr, idx);
+        if (root->right() != NULL) // To avoid extra call
+            idx = postorderhelp(root->right(), arr, idx);
+        arr[idx++] = root->element();
+        return idx;
+    }
+    int preorderhelp(BinNode<E> *root, E *arr, int idx) const
+    {
+        if (root == NULL)
+            return idx;
+        arr[idx++] = root->element();
+        if (root->left() != NULL) // To avoid extra call
+            idx = preorderhelp(root->left(), arr, idx);
+        if (root->right() != NULL) // To avoid extra call
+            idx = preorderhelp(root->right(), arr, idx);
+        return idx;
+    }
+    int inorderhelp(BinNode<E> *root, E *arr, int idx) const
+    {
+        if (root == NULL)
+            return idx;
+        if (root->left() != NULL) // To avoid extra call
+            idx = inorderhelp(root->left(), arr, idx);
+        arr[idx++] = root->element();
+        if (root->right() != NULL) // To avoid extra call
+            idx = inorderhelp(root->right(), arr, idx);
+        return idx;
+    }
 
 protected:
     BinNode<E> *root; // Root of the BinTree
@@ -85,6 +118,11 @@ public:
 
     // Return the number of nodes in the tree.
     int size() { return nodecount; }
+    int height() const
+    {
+        return heighthelp(root);
+    }
+
     // Print the contents of the tree.
     void print() const
     {
@@ -94,36 +132,40 @@ public:
             printhelp(root);
         cout << endl;
     }
+
     // Inorder traversal - left->root->right.
-    void inorder() const
+    E *inorder() const
     {
-        if (root == NULL)
-            cout << "The Tree is empty";
-        else
-            root->inorder();
-        cout << endl;
+        E *arr = new E[nodecount];
+        inorderhelp(root, arr, 0);
+        return arr;
     }
+
     // Preorder traversal - root->left->right.
-    void preorder() const
+    E *preorder() const
     {
-        if (root == NULL)
-            cout << "The Tree is empty";
-        else
-            root->preorder();
-        cout << endl;
+        E *arr = new E[nodecount];
+        preorderhelp(root, arr, 0);
+        return arr;
     }
+
     // Postorder traversal - left->right->root.
-    void postorder() const
+    E *postorder() const
     {
-        if (root == NULL)
-            cout << "The Tree is empty";
-        else
-            root->postorder();
-        cout << endl;
+        E *arr = new E[nodecount];
+        postorderhelp(root, arr, 0);
+        return arr;
     }
-    int height() const
-    {
-        return heighthelp(root);
-    }
+    template <typename T>
+    friend ostream &operator<<(ostream &os, BinTree<T> *t);
 };
+template <typename T>
+ostream &operator<<(ostream &os, BinTree<T> *t)
+{
+    if (t->root == NULL)
+        cout << "The Tree is empty";
+    else
+        t->printhelp(t->root);
+    return os;
+}
 #endif
