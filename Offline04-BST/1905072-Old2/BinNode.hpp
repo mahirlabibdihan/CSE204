@@ -12,7 +12,6 @@ public:
     // Two constructors -- with and without initial values
     BinNode()
     {
-        it = E();
         leftChild = rightChild = NULL;
     }
     BinNode(E e, BinNode<E> *l = NULL, BinNode<E> *r = NULL)
@@ -34,5 +33,41 @@ public:
     void setRight(BinNode<E> *rc) { rightChild = rc; }
     // Return: true if it is a leaf, false otherwise
     bool isLeaf() const { return (leftChild == NULL) && (rightChild == NULL); }
+    // Inorder traversal
+    void inorder() const
+    {
+        // Traverse left Sub Tree
+        if (left() != NULL)
+            left()->inorder();
+        // Print
+        cout << element() << ' ';
+        // Traverse right Sub Tree
+        if (right() != NULL)
+            right()->inorder();
+    }
+    // Preorder traversal
+    void preorder() const
+    {
+        // Print
+        cout << element() << ' ';
+        // Traverse left Sub Tree
+        if (left() != NULL)
+            left()->preorder();
+        // Traverse right Sub Tree
+        if (right() != NULL)
+            right()->preorder();
+    }
+    // Postorder traversal
+    void postorder() const
+    {
+        // Traverse left Sub Tree
+        if (left() != NULL)
+            left()->postorder();
+        // Traverse right Sub Tree
+        if (right() != NULL)
+            right()->postorder();
+        // Print
+        cout << element() << ' ';
+    }
 };
 #endif

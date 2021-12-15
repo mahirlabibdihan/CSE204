@@ -16,34 +16,49 @@ int main()
         in >> c;
         switch (c)
         {
-        case 'F':
-            in >> n;
-            if (bst->find(n) == (int)NULL)
-                cout << "False" << endl;
-            else
-                cout << "True" << endl;
-            break;
-        case 'I':
+        case 'I': // Insert
+        {
             in >> n;
             bst->insert(n, n);
-            bst->print();
+            cout << bst << endl;
             break;
-        case 'T':
-            in >> s;
-            if (s == "In")
-                bst->inorder();
-            else if (s == "Pre")
-                bst->preorder();
-            else if (s == "Post")
-                bst->postorder();
-            break;
-        case 'D':
+        }
+        case 'F': // Find
+        {
             in >> n;
-            if (bst->remove(n) == (int)NULL)
-                cout << "Invalid Operation" << endl;
+            if (bst->find(n))
+                cout << "True" << endl;
             else
-                bst->print();
+                cout << "False" << endl;
             break;
+        }
+        case 'D': // Delete
+        {
+            in >> n;
+            if (bst->remove(n))
+                cout << bst << endl;
+            else
+                cout << "Invalid Operation" << endl;
+            break;
+        }
+        case 'T': // Traverse
+        {
+            in >> s;
+            int *arr;
+            if (s == "In")
+                arr = bst->inorder();
+            else if (s == "Pre")
+                arr = bst->preorder();
+            else if (s == "Post")
+                arr = bst->postorder();
+            for (int i = 0; i < bst->size(); i++)
+            {
+                cout << arr[i] << " ";
+            }
+            cout << endl;
+            delete[] arr;
+            break;
+        }
         default:
             break;
         }

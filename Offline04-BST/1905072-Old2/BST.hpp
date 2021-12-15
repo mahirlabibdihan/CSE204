@@ -1,7 +1,5 @@
 #ifndef __BST__
 #define __BST__
-#include <iostream>
-using namespace std;
 #include "BinTree.hpp"
 #include "BSTNode.hpp"
 
@@ -138,11 +136,11 @@ private:
         }
         return root;
     }
-    bool findhelp(BinNode<E> *root, const Key &k) const
+    E findhelp(BinNode<E> *root, const Key &k) const
     {
         if (root == NULL)
         { // 'k' is not in the tree
-            return false;
+            return (E)NULL;
         }
         if (k < ((BSTNode<Key, E> *)root)->key())
         {
@@ -156,7 +154,7 @@ private:
         }
         else
         { // Found it
-            return true;
+            return root->element();
         }
     }
 
@@ -176,20 +174,35 @@ public:
     // Remove a record from the tree.
     // k: Key value of the record to remove
     // Return: The record removed, or NULL if there is none.
-    bool remove(const Key &k)
+    E remove(const Key &k)
     {
-        if (findhelp(this->root, k)) // First find it
+        E temp = findhelp(this->root, k); // First find it
+        if (temp != (E)NULL)
         {
             this->root = removehelp(this->root, k);
             this->nodecount--;
-            return true;
         }
-        return false;
+        return temp;
+    }
+
+    // Remove and return the root node from the dictionary.
+    // Return: The record removed, null if tree is empty.
+    E removeAny()
+    { // Delete min value
+        if (this->root != NULL)
+        {
+            E temp = getMin(this->root)->element();
+            this->root = deleteMin(this->root);
+            this->nodecount--;
+            return temp;
+        }
+        else
+            return (E)NULL;
     }
 
     // Return Record with key value 'k', NULL if none exist.
     // If multiple nodes match 'k', return an arbitrary one.
-    bool find(const Key &k) const
+    E find(const Key &k) const
     {
         return findhelp(this->root, k);
     }
