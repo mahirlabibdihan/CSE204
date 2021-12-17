@@ -93,15 +93,10 @@ public:
     }
     T remove()
     {
-        // Remove and return current value
-
-        if (curr->next == NULL) // Next node of curr pointer is NULL. This is only possible when the list is empty.
-        {
-            cout << "No element" << endl;
-            exit(-1);
-        }
-        T it = curr->next->value;    // Remember value
-        Link<T> *ltemp = curr->next; // Remember link node
+        // Remove and return current element
+        Assert(curr->next != NULL, "Empty List"); // Next node of curr pointer is NULL. This is only possible when the list is empty.
+        T it = curr->next->element;               // Remember element
+        Link<T> *ltemp = curr->next;              // Remember link node
         if (tail == curr->next)
         {
             tail = curr; // If we are deleting the last element(which is also tail),the tail pointer will step back
@@ -111,7 +106,7 @@ public:
         listSize--;
         if (curr->next == NULL) // If the last element is deleted, curr pointer will step back
         {
-            if (curr != head) // Until it was also the first element. because if first element got deleted we can't step back
+            if (tail != head) // Until it was also the first element. because if first element got deleted we can't step back
             {
                 this->prev();
             }
@@ -125,17 +120,20 @@ public:
     void moveToEnd() // Place curr at list end
     {
         curr = tail;
-        this->prev();
+        if (tail != head)
+        {
+            this->prev();
+        }
     }
     void prev()
     { // Move curr one step left; no change if already at front
         if (curr == head)
         {
             cout << "Already at first position" << endl;
-            exit(-1); // No previous value
+            return; // No previous element
         }
         Link<T> *temp = head;
-        // March down list until we find the previous value
+        // March down list until we find the previous element
         while (temp->next != curr)
         {
             temp = temp->next;
@@ -145,10 +143,15 @@ public:
     // Move curr one step right; no change if already at end
     void next()
     {
-        if (curr->next == tail)
+        if (head == tail)
         {
             cout << "Already at last position" << endl;
-            exit(-1);
+            return;
+        }
+        else if (curr->next == tail)
+        {
+            cout << "Already at last position" << endl;
+            return;
         }
         curr = curr->next;
     }
@@ -171,7 +174,7 @@ public:
         if ((pos < 0) || (pos >= listSize))
         {
             cout << "Position out of range" << endl;
-            exit(-1);
+            return;
         }
         curr = head;
         for (int i = 0; i < pos; i++)
@@ -180,20 +183,16 @@ public:
         }
     }
     const T &getValue() const
-    { // Return current value
-        if (curr->next == NULL)
-        {
-            cout << "No current element" << endl;
-            exit(-1);
-        }
-        return curr->next->value;
+    { // Return current element
+        Assert(curr->next != NULL, "Empty list");
+        return curr->next->element;
     }
     int Search(const T &item) const
     {
         Link<T> *temp = head->next;
         for (int i = 0; i < listSize; i++)
         {
-            if (temp->value == item)
+            if (temp->element == item)
             {
                 return i;
             }

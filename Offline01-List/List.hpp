@@ -1,5 +1,11 @@
 #ifndef __LIST__
 #define __LIST__
+#define Assert(val, s)                             \
+    if (!(val))                                    \
+    {                                              \
+        cout << "Assertion Failed: " << s << endl; \
+        exit(-1);                                  \
+    }
 template <typename T>
 class List
 {

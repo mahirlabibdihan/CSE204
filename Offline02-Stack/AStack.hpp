@@ -13,10 +13,10 @@ private:
     int top;      // Index for top element
     T *listArray; // Array holding stack elements
     int dir;
-    void realloc(int size)
+    void expand()
     {
         // Reallocating memory to store more elements
-        T *temp = new T[size];
+        T *temp = new T[2 * maxSize];
 
         for (int i = 0; i < maxSize; i++)
         {
@@ -25,7 +25,7 @@ private:
             else
                 temp[maxSize + i] = listArray[i];
         }
-        maxSize = size;
+        maxSize *= 2;
         delete[] listArray;
         listArray = temp;
     }
@@ -54,7 +54,7 @@ public:
     { // Put "it" on stack
         if (length() == maxSize)
         {
-            realloc(2 * maxSize);
+            expand();
         }
         listArray[top] = it;
         top += dir;
@@ -75,7 +75,11 @@ public:
     }
     void setDirection(int direction)
     {
-        Assert(length() == 0, "Stack is not Empty");
+        if (length() != 0)
+        {
+            cout << "Stack is not Empty" << endl;
+            return;
+        }
         dir = direction;
         top = (dir == 1 ? 0 : maxSize - 1);
     }

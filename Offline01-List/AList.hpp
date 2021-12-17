@@ -15,14 +15,19 @@ private:
     int listSize;
     int curr;
     T *listArray;
-    void realloc(int size)
+    /*
+        While expanding arraylist we have two choices:
+        1. Increase by a constant size (maxSize=maxSize+chunk) -> Memory efficient
+        2. Increase by a factor (maxSize=2*maxSize) -> Time efficient
+    */
+    void expand()
     {
-        T *temp = new T[size];
+        T *temp = new T[maxSize + chunk];
         for (int i = 0; i < maxSize; i++)
         {
             temp[i] = listArray[i];
         }
-        maxSize = size;
+        maxSize += chunk;
         delete[] listArray;
         listArray = temp;
     }
@@ -62,7 +67,7 @@ public:
         if (listSize == maxSize)
         {
             // Reallocating memory to store more elements
-            realloc(maxSize + chunk);
+            expand();
         }
         for (int i = listSize; i > curr; i--) // Shift elements up
         {
@@ -77,18 +82,14 @@ public:
         if (listSize == maxSize)
         {
             // Reallocating memory to store more elements
-            realloc(maxSize + chunk);
+            expand();
         }
         listArray[listSize++] = it;
     }
 
     T remove()
     { // Remove and return the current element.
-        if ((curr < 0) || (curr >= listSize))
-        {
-            cout << "No element" << endl;
-            exit(-1);
-        }
+        Assert((curr >= 0) && (curr < listSize), "Empty list");
         T it = listArray[curr];
         for (int i = curr; i < listSize - 1; i++)
         {
@@ -110,23 +111,23 @@ public:
     }
     void moveToEnd()
     {
-        curr = listSize - 1;
+        curr = max(listSize - 1, 0);
     }
     void prev()
     {
         if (curr == 0)
         {
             cout << "Already at first position" << endl;
-            exit(-1);
+            return;
         }
         curr--;
     }
     void next()
     {
-        if (curr == listSize - 1)
+        if (curr == max(listSize - 1, 0))
         {
             cout << "Already at last position" << endl;
-            exit(-1);
+            return;
         }
         curr++;
     }
@@ -142,18 +143,14 @@ public:
     { // Set current list position to "pos"
         if ((pos < 0) || (pos >= listSize))
         {
-            cout << "Pos out of range" << endl;
-            exit(-1);
+            cout << "Position out of range" << endl;
+            return;
         }
         curr = pos;
     }
     const T &getValue() const
     { // Return current element
-        if ((curr < 0) || (curr >= listSize))
-        {
-            cout << "No current element" << endl;
-            exit(-1);
-        }
+        Assert((curr >= 0) && (curr < listSize), "Empty list");
         return listArray[curr];
     }
     int Search(const T &item) const

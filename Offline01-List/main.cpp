@@ -5,19 +5,28 @@ void print(List<T> *lst)
 {
     int curr = lst->currPos();
     cout << "<";
-    for (lst->moveToStart(); lst->currPos() < lst->length(); lst->next())
-    {
-        if (lst->currPos() == curr)
-        {
-            cout << "| ";
-        }
-        cout << lst->getValue() << ' ';
-    }
-    cout << ">" << endl;
     if (lst->length() > 0)
     {
+        for (lst->moveToStart();;)
+        {
+            if (lst->currPos() == curr)
+            {
+                cout << "| ";
+            }
+            cout << lst->getValue() << ' ';
+
+            if (lst->currPos() + 1 < lst->length())
+            {
+                lst->next();
+            }
+            else
+            {
+                break;
+            }
+        }
         lst->moveToPos(curr);
     }
+    cout << ">" << endl;
 }
 
 int main()
@@ -29,7 +38,7 @@ int main()
     {
         cin >> a[i];
     }
-    List<int> *lst = new AList<int>(a, k, x);
+    List<int> *lst = new LList<int>(a, k, x);
     print(lst);
     while (true)
     {

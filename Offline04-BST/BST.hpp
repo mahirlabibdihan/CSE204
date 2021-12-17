@@ -88,13 +88,13 @@ private:
     }
     BinNode<E> *removehelp(BinNode<E> *root, const Key &k)
     {
-        if (root == NULL) // 'k' is not in the tree
+        if (root == NULL) // Empty tree
         {
             return NULL;
         }
         if (k < ((BSTNode<Key, E> *)root)->key())
         {
-            // 'k'' is smaller than current key, so go left
+            // 'k' is smaller than current key, so go left
             if (root->left() != NULL) // To avoid extra call
             {
                 root->setLeft(removehelp(root->left(), k)); // Check left
@@ -127,6 +127,10 @@ private:
             {
                 // Both children are non-empty
                 // We need to replace this node with inorder successor or predecessor
+                // Or we can choose based on which subtree is bigger
+                // if(leftSubTree>rightSubTree) {replace with inorder predecessor}
+                // else {replace with inorder successor}
+                // In this way the tree will remain balanced
                 // temp = getMin(root->right());    // Inorder Successor
                 temp = getMax(root->left()); // Inorder predecessor
                 ((BSTNode<Key, E> *)root)->setKey(((BSTNode<Key, E> *)temp)->key());
@@ -141,8 +145,8 @@ private:
     bool findhelp(BinNode<E> *root, const Key &k) const
     {
         if (root == NULL)
-        { // 'k' is not in the tree
-            return false;
+        {
+            return false; // 'k' is not in the tree or empty tree
         }
         if (k < ((BSTNode<Key, E> *)root)->key())
         {
