@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Stack.hpp"
-#include "Link.hpp"
+#include "SLink.hpp"
 using namespace std;
 // Linked stack implementation
 template <typename E>
@@ -33,7 +33,7 @@ public:
     }
     void push(const E &it)
     { // Put "it" on stack
-        top = new Link<E>(it, top);
+        top = new SLink<E>(it, top);
         size++;
     }
     E pop()

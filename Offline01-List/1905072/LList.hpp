@@ -19,7 +19,7 @@ private:
         curr = tail = head = new Link<E>;
         listSize = 0;
     }
-    void removeall()
+    void removeAll()
     { // Return link nodes to free store
         while (head != NULL)
         {
@@ -45,11 +45,11 @@ public:
     }
     ~LList()
     {
-        removeall();
+        removeAll();
     }
     void clear()
     {
-        removeall();
+        removeAll();
         init();
     }
     void insert(const E &it)

@@ -31,11 +31,11 @@ public:
     }
     ~SLList()
     {
-        this->removeall();
+        this->removeAll();
     }
     void clear()
     {
-        this->removeall();
+        this->removeAll();
         init();
     }
     void insert(const E &it)

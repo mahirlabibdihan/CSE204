@@ -43,7 +43,7 @@ protected:
     { // Intialization helper method
         listSize = 0;
     }
-    void removeall()
+    void removeAll()
     { // Return link nodes to free store
         while (head != NULL)
         {
@@ -61,7 +61,7 @@ public:
     virtual ~LList()
     {
         // Link<E>::clearFreeList();
-        removeall();
+        removeAll();
     }
     void moveToStart() // Place curr at list start
     {

@@ -35,15 +35,13 @@ private:
 public:
     AList(int maxSize = defaultSize)
     { // Constructor
-        this->maxSize = maxSize;
-        chunk = maxSize;
+        chunk = this->maxSize = maxSize;
         listSize = curr = 0;
         listArray = new E[maxSize];
     }
     AList(int *arr, int listSize, int maxSize = defaultSize)
     { // Constructor
-        this->maxSize = maxSize;
-        chunk = maxSize;
+        chunk = this->maxSize = maxSize;
         this->listSize = listSize;
         curr = 0;
         listArray = new E[maxSize];
@@ -141,7 +139,7 @@ public:
     }
     void moveToPos(int pos)
     { // Set current list position to "pos"
-        if ((pos < 0) || (pos >= listSize))
+        if (length() > 0 && ((pos < 0) || (pos >= listSize)))
         {
             cout << "Position out of range" << endl;
             return;

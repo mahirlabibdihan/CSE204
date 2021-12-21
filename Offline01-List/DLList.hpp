@@ -38,7 +38,7 @@ public:
     }
     void clear()
     {
-        LList<E>::removeall();
+        LList<E>::removeAll();
         init();
     }
     // Insert "it" at current position

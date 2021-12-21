@@ -1,9 +1,9 @@
 #include "LStack.hpp"
 template <typename T>
-void print(Stack<T> *s)
+ostream &operator<<(ostream &os, Stack<T> *s)
 {
     Stack<T> *tmp = new LStack<T>(s->length());
-    cout << "<";
+    os << "<";
     while (s->length() > 0)
     {
         tmp->push(s->topValue());
@@ -11,16 +11,17 @@ void print(Stack<T> *s)
     }
     while (tmp->length() > 0)
     {
-        cout << tmp->topValue();
+        os << tmp->topValue();
         s->push(tmp->topValue());
         tmp->pop();
         if (tmp->length() > 0)
         {
-            cout << ", ";
+            os << ", ";
         }
     }
-    cout << ">" << endl;
+    cout << ">";
     delete tmp;
+    return os;
 }
 
 int main()
@@ -35,7 +36,7 @@ int main()
         s->push(a);
     }
 
-    print(s);
+    cout << s << endl;
     while (true)
     {
         int p, q;
@@ -49,29 +50,29 @@ int main()
         {
         case 1: // clear()
             s->clear();
-            print(s);
+            cout << s << endl;
             cout << -1 << endl;
             break;
         case 2: // insert(item)
             s->push(p);
-            print(s);
+            cout << s << endl;
             cout << -1 << endl;
             break;
         case 3: // remove
             tmp = s->pop();
-            print(s);
+            cout << s << endl;
             cout << tmp << endl;
             break;
         case 4: // length
-            print(s);
+            cout << s << endl;
             cout << s->length() << endl;
             break;
         case 5: // getValue
-            print(s);
+            cout << s << endl;
             cout << s->topValue() << endl;
             break;
         case 6: // search
-            print(s);
+            cout << s << endl;
             s->setDirection(p);
             cout << -1 << endl;
             break;
