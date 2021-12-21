@@ -1,45 +1,44 @@
-#include "AList.hpp"
-#include "LList.hpp"
-template <typename T>
-void print(List<T> *lst)
+#include "SLList.hpp"
+#include "DLList.hpp"
+template <typename E>
+ostream &operator<<(ostream &os, List<E> *lst)
 {
     int curr = lst->currPos();
-    cout << "<";
+    os << "<";
     if (lst->length() > 0)
     {
-        for (lst->moveToStart();;)
+        for (lst->moveToStart();; lst->next())
         {
             if (lst->currPos() == curr)
             {
-                cout << "| ";
+                os << "| ";
             }
-            cout << lst->getValue() << ' ';
+            os << lst->getValue() << ' ';
 
-            if (lst->currPos() + 1 < lst->length())
-            {
-                lst->next();
-            }
-            else
+            if (lst->currPos() + 1 == lst->length())
             {
                 break;
             }
         }
         lst->moveToPos(curr);
     }
-    cout << ">" << endl;
+    os << ">";
+    return os;
 }
 
 int main()
 {
     int k, x;
     cin >> k >> x;
-    int a[k];
+    List<int> *lst = new DLList<int>(x);
     for (int i = 0; i < k; i++)
     {
-        cin >> a[i];
+        int a;
+        cin >> a;
+        lst->append(a);
     }
-    List<int> *lst = new LList<int>(a, k, x);
-    print(lst);
+
+    cout << lst << endl;
     while (true)
     {
         int p, q;
@@ -53,64 +52,64 @@ int main()
         {
         case 1: // clear()
             lst->clear();
-            print(lst);
+            cout << lst << endl;
             cout << -1 << endl;
             break;
         case 2: // insert(item)
             lst->insert(p);
-            print(lst);
+            cout << lst << endl;
             cout << -1 << endl;
             break;
         case 3: // append
             lst->append(p);
-            print(lst);
+            cout << lst << endl;
             cout << -1 << endl;
             break;
         case 4: // remove
             tmp = lst->remove();
-            print(lst);
+            cout << lst << endl;
             cout << tmp << endl;
             break;
         case 5: // moveToStart
             lst->moveToStart();
-            print(lst);
+            cout << lst << endl;
             cout << -1 << endl;
             break;
         case 6: // moveToEnd
             lst->moveToEnd();
-            print(lst);
+            cout << lst << endl;
             cout << -1 << endl;
             break;
         case 7: // prev
             lst->prev();
-            print(lst);
+            cout << lst << endl;
             cout << -1 << endl;
             break;
         case 8: // next
             lst->next();
-            print(lst);
+            cout << lst << endl;
             cout << -1 << endl;
             break;
         case 9: // length
-            print(lst);
+            cout << lst << endl;
             cout << lst->length() << endl;
             break;
         case 10: // currPos
-            print(lst);
+            cout << lst << endl;
             cout << lst->currPos() << endl;
             break;
         case 11: // moveToPos
             lst->moveToPos(p);
-            print(lst);
+            cout << lst << endl;
             cout << -1 << endl;
             break;
         case 12: // getValue
-            print(lst);
+            cout << lst << endl;
             cout << lst->getValue() << endl;
             break;
         case 13: // search
-            print(lst);
-            cout << lst->Search(p) << endl;
+            cout << lst << endl;
+            cout << lst->search(p) << endl;
             break;
         default: // exit
             return 0;

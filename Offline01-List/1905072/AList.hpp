@@ -5,8 +5,8 @@
 using namespace std;
 
 // Array list implementation
-template <typename T>
-class AList : public List<T>
+template <typename E>
+class AList : public List<E>
 {
 private:
     static const int defaultSize = 10;
@@ -14,7 +14,7 @@ private:
     int maxSize;
     int listSize;
     int curr;
-    T *listArray;
+    E *listArray;
 
 public:
     AList(int maxSize = defaultSize)
@@ -22,7 +22,7 @@ public:
         this->maxSize = maxSize;
         chunk = maxSize;
         listSize = curr = 0;
-        listArray = new T[maxSize];
+        listArray = new E[maxSize];
     }
     AList(int *arr, int listSize, int maxSize = defaultSize)
     { // Constructor
@@ -30,7 +30,7 @@ public:
         chunk = maxSize;
         this->listSize = listSize;
         curr = 0;
-        listArray = new T[maxSize];
+        listArray = new E[maxSize];
         for (int i = 0; i < listSize; i++)
         {
             listArray[i] = arr[i];
@@ -44,14 +44,14 @@ public:
     {
         delete[] listArray;
         listSize = curr = 0;
-        listArray = new T[defaultSize];
+        listArray = new E[defaultSize];
     }
-    void insert(const T &it)
+    void insert(const E &it)
     { // Insert "it" at current position
         if (listSize < maxSize)
         {
             // Reallocating memory to store double elements
-            T *temp = new T[2 * maxSize];
+            E *temp = new E[2 * maxSize];
             for (int i = 0; i < maxSize; i++)
             {
                 temp[i] = listArray[i];
@@ -68,12 +68,12 @@ public:
         listArray[curr] = it;
         listSize++; // Increment list size
     }
-    void append(const T &it)
+    void append(const E &it)
     { // Append "it"
         if (listSize < maxSize)
         {
             // Reallocating memory to store double elements
-            T *temp = new T[maxSize + chunk];
+            E *temp = new E[maxSize + chunk];
             for (int i = 0; i < maxSize; i++)
             {
                 temp[i] = listArray[i];
@@ -85,14 +85,14 @@ public:
         listArray[listSize++] = it;
     }
 
-    T remove()
+    E remove()
     { // Remove and return the current element.
         if ((curr < 0) || (curr >= listSize))
         {
             cout << "No element" << endl;
             exit(-1);
         }
-        T it = listArray[curr];
+        E it = listArray[curr];
         for (int i = curr; i < listSize - 1; i++)
         {
             listArray[i] = listArray[i + 1];
@@ -150,7 +150,7 @@ public:
         }
         curr = pos;
     }
-    const T &getValue() const
+    const E &getValue() const
     { // Return current element
         if ((curr < 0) || (curr >= listSize))
         {
@@ -159,8 +159,8 @@ public:
         }
         return listArray[curr];
     }
-    int Search(const T &item) const
-    { // Search for item in the list
+    int search(const E &item) const
+    { // search for item in the list
         for (int i = 0; i < listSize; i++)
         {
             if (listArray[i] == item)

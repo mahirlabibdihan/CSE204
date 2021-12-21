@@ -1,7 +1,7 @@
 #include "AList.hpp"
 #include "LList.hpp"
-template <typename T>
-void print(List<T> *lst)
+template <typename E>
+void print(List<E> *lst)
 {
     int curr = lst->currPos();
     cout << "<";
@@ -101,7 +101,7 @@ int main()
             break;
         case 13: // search
             print(lst);
-            cout << lst->Search(p) << endl;
+            cout << lst->search(p) << endl;
             break;
         default: // exit
             return 0;

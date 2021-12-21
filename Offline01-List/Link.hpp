@@ -1,4 +1,7 @@
-#include <cstddef>
+#ifndef __LINK__
+#define __LINK__
+#include <iostream>
+using namespace std;
 // Singly linked list node
 /*template <typename T>
 class Link
@@ -24,30 +27,42 @@ class Link
 private:
     static Link<E> *freelist; // Reference to freelist head
 public:
-    E element;  // Value for this node
-    Link *next; // Point to next node in list
+    E element;     // Value for this node
+    Link<E> *next; // Point to next node in list
     // Constructors
-    Link(const E &elemval, Link *nextval = NULL)
+    Link()
     {
-        element = elemval;
-        next = nextval;
     }
-    Link(Link *nextval = NULL) { next = nextval; }
+    virtual ~Link()
+    {
+        // cout << "Link Delete" << endl;
+    }
     void *operator new(size_t t)
     { // Overloaded new operator
         if (freelist == NULL)
-            return ::new Link;    // Create space
-        Link<E> *temp = freelist; // Can take from freelist
+            return ::new Link<E>(); // Create space
+        Link<E> *temp = freelist;   // Can take from freelist
         freelist = freelist->next;
         return temp; // Return the link
     }
     // Overloaded delete operator
     void operator delete(void *ptr)
     {
+        // cout << "Link Delete override" << endl;
         ((Link<E> *)ptr)->next = freelist; // Put on freelist
         freelist = (Link<E> *)ptr;
+    }
+    static void clearFreeList()
+    {
+        while (freelist != NULL)
+        {
+            Link<E> *temp = freelist; // Can take from freelist
+            freelist = freelist->next;
+            ::delete temp;
+        }
     }
 };
 // The freelist head pointer is actually created here
 template <typename E>
 Link<E> *Link<E>::freelist = NULL;
+#endif

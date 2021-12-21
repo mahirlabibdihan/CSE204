@@ -1,5 +1,6 @@
 #include <iostream>
-#include "LList.hpp"
+#include "DLList.hpp"
+#include "SLList.hpp"
 #include "AList.hpp"
 using namespace std;
 
@@ -7,7 +8,7 @@ void encode(List<int> *lst, int n)
 {
     for (int i = 0; i < n; i++)
     {
-        if (lst->Search(i) > -1)
+        if (lst->search(i) > -1)
         {
             cout << i;
         }

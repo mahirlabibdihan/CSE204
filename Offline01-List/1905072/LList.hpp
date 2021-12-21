@@ -6,17 +6,17 @@
 using namespace std;
 
 // Linked list implementation
-template <typename T>
-class LList : public List<T>
+template <typename E>
+class LList : public List<E>
 {
 private:
-    Link<T> *head;
-    Link<T> *tail;
-    Link<T> *curr;
+    Link<E> *head;
+    Link<E> *tail;
+    Link<E> *curr;
     int listSize;
     void init()
     { // Intialization helper method
-        curr = tail = head = new Link<T>;
+        curr = tail = head = new Link<E>;
         listSize = 0;
     }
     void removeall()
@@ -52,21 +52,21 @@ public:
         removeall();
         init();
     }
-    void insert(const T &it)
+    void insert(const E &it)
     { // Insert "it" at current position
-        curr->next = new Link<T>(it, curr->next);
+        curr->next = new Link<E>(it, curr->next);
         if (tail == curr)
         {
             tail = curr->next; // New tail
         }
         listSize++;
     }
-    void append(const T &it)
+    void append(const E &it)
     { // Append "it" to list
-        tail = tail->next = new Link<T>(it);
+        tail = tail->next = new Link<E>(it);
         listSize++;
     }
-    T remove()
+    E remove()
     {
         // Remove and return current value
         if (curr->next == NULL)
@@ -74,8 +74,8 @@ public:
             cout << "No element" << endl;
             exit(-1);
         }
-        T it = curr->next->value;    // Remember value
-        Link<T> *ltemp = curr->next; // Remember link node
+        E it = curr->next->value;    // Remember value
+        Link<E> *ltemp = curr->next; // Remember link node
         if (tail == curr->next)
         {
             tail = curr;
@@ -108,7 +108,7 @@ public:
             cout << "Already at first position" << endl;
             exit(-1); // No previous value
         }
-        Link<T> *temp = head;
+        Link<E> *temp = head;
         // March down list until we find the previous value
         while (temp->next != curr)
         {
@@ -132,7 +132,7 @@ public:
     }
     int currPos() const
     { // Return the position of the current element
-        Link<T> *temp = head;
+        Link<E> *temp = head;
         int i;
         for (i = 0; curr != temp; i++)
         {
@@ -153,7 +153,7 @@ public:
             curr = curr->next;
         }
     }
-    const T &getValue() const
+    const E &getValue() const
     { // Return current value
         if (curr->next == NULL)
         {
@@ -162,9 +162,9 @@ public:
         }
         return curr->next->value;
     }
-    int Search(const T &item) const
+    int search(const E &item) const
     {
-        Link<T> *temp = head->next;
+        Link<E> *temp = head->next;
         for (int i = 0; i < listSize; i++)
         {
             if (temp->value == item)

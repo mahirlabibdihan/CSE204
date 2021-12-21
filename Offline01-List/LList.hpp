@@ -31,17 +31,16 @@ Remove:     head->[0th element]->[1th]->[2th]->........->[n-3th]->tail[n-2 th]->
 
 */
 // Linked list implementation
-template <typename T>
-class LList : public List<T>
+template <typename E>
+class LList : public List<E>
 {
-private:
-    Link<T> *head;
-    Link<T> *tail;
-    Link<T> *curr;
+protected:
     int listSize;
+    Link<E> *head;
+    Link<E> *tail;
+    Link<E> *curr;
     void init()
     { // Intialization helper method
-        curr = tail = head = new Link<T>;
         listSize = 0;
     }
     void removeall()
@@ -55,90 +54,18 @@ private:
     }
 
 public:
-    LList(int maxSize = 0)
+    LList()
     {
         init();
     }
-    LList(int *arr, int listSize, int maxSize = 0)
+    virtual ~LList()
     {
-        init();
-        // Copying elements form array to list
-        for (int i = 0; i < listSize; i++)
-        {
-            this->append(arr[i]);
-        }
-    }
-    ~LList()
-    {
+        // Link<E>::clearFreeList();
         removeall();
-    }
-    void clear()
-    {
-        removeall();
-        init();
-    }
-    void insert(const T &it)
-    { // Insert "it" at current position
-        curr->next = new Link<T>(it, curr->next);
-        if (tail == curr)
-        {
-            tail = curr->next; // New tail
-        }
-        listSize++;
-    }
-    void append(const T &it)
-    { // Append "it" to list
-        tail = tail->next = new Link<T>(it);
-        listSize++;
-    }
-    T remove()
-    {
-        // Remove and return current element
-        Assert(curr->next != NULL, "Empty List"); // Next node of curr pointer is NULL. This is only possible when the list is empty.
-        T it = curr->next->element;               // Remember element
-        Link<T> *ltemp = curr->next;              // Remember link node
-        if (tail == curr->next)
-        {
-            tail = curr; // If we are deleting the last element(which is also tail),the tail pointer will step back
-        }
-        curr->next = curr->next->next;
-        delete ltemp;
-        listSize--;
-        if (curr->next == NULL) // If the last element is deleted, curr pointer will step back
-        {
-            if (tail != head) // Until it was also the first element. because if first element got deleted we can't step back
-            {
-                this->prev();
-            }
-        }
-        return it;
     }
     void moveToStart() // Place curr at list start
     {
         curr = head;
-    }
-    void moveToEnd() // Place curr at list end
-    {
-        curr = tail;
-        if (tail != head)
-        {
-            this->prev();
-        }
-    }
-    void prev()
-    { // Move curr one step left; no change if already at front
-        if (curr == head)
-        {
-            cout << "Already at first position" << endl;
-            return; // No previous element
-        }
-        Link<T> *temp = head;
-        // March down list until we find the previous element
-        while (temp->next != curr)
-        {
-            temp = temp->next;
-        }
-        curr = temp;
     }
     // Move curr one step right; no change if already at end
     void next()
@@ -161,7 +88,7 @@ public:
     }
     int currPos() const
     { // Return the position of the current element
-        Link<T> *temp = head;
+        Link<E> *temp = head;
         int i;
         for (i = 0; curr != temp; i++)
         {
@@ -182,14 +109,14 @@ public:
             curr = curr->next;
         }
     }
-    const T &getValue() const
+    const E &getValue() const
     { // Return current element
         Assert(curr->next != NULL, "Empty list");
         return curr->next->element;
     }
-    int Search(const T &item) const
+    int search(const E &item) const
     {
-        Link<T> *temp = head->next;
+        Link<E> *temp = head->next;
         for (int i = 0; i < listSize; i++)
         {
             if (temp->element == item)
