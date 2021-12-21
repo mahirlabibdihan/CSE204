@@ -1,12 +1,12 @@
 #include "LQueue.hpp"
 #include "AQueue.hpp"
-template <typename T>
-ostream &operator<<(ostream &os, Queue<T> *q)
+template <typename E>
+ostream &operator<<(ostream &os, Queue<E> *q)
 {
     os << "<";
     for (int i = 0; i < q->length(); i++)
     {
-        T tmp = q->dequeue();
+        E tmp = q->dequeue();
         os << tmp;
         if (i < q->length())
         {

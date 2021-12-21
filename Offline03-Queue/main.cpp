@@ -1,18 +1,18 @@
-#include "LQueue.hpp"
-#include "AQueue.hpp"
-template <typename T>
-ostream &operator<<(ostream &os, Queue<T> *q)
+#include "LDeque.hpp"
+#include "ADeque.hpp"
+template <typename E>
+ostream &operator<<(ostream &os, Deque<E> *q)
 {
     os << "<";
     for (int i = 0; i < q->length(); i++)
     {
-        T tmp = q->dequeue();
+        E tmp = q->pop_front();
         os << tmp;
         if (i < q->length())
         {
             os << ", ";
         }
-        q->enqueue(tmp);
+        q->push_back(tmp);
     }
     os << ">";
     return os;
@@ -22,12 +22,12 @@ int main()
 {
     int k;
     cin >> k;
-    Queue<int> *q = new AQueue<int>(k);
+    Deque<int> *q = new LDeque<int>(k);
     for (int i = 0; i < k; i++)
     {
         int tmp;
         cin >> tmp;
-        q->enqueue(tmp);
+        q->push_back(tmp);
     }
 
     cout << q << endl;
@@ -48,12 +48,12 @@ int main()
             cout << -1 << endl;
             break;
         case 2: // enqueue(item)
-            q->enqueue(b);
+            q->push_front(b);
             cout << q << endl;
             cout << -1 << endl;
             break;
         case 3: // dequeue
-            tmp = q->dequeue();
+            tmp = q->pop_back();
             cout << q << endl;
             cout << tmp << endl;
             break;
@@ -63,14 +63,14 @@ int main()
             break;
         case 5: // frontValue
             cout << q << endl;
-            cout << q->frontValue() << endl;
+            cout << q->front() << endl;
             break;
         case 6: // rearValue
             cout << q << endl;
-            cout << q->rearValue() << endl;
+            cout << q->back() << endl;
             break;
         case 7: // leaveQueue
-            tmp = q->leaveQueue();
+            tmp = q->pop_back();
             cout << q << endl;
             cout << tmp << endl;
             break;

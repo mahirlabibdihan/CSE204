@@ -3,19 +3,19 @@
 #include "Queue.hpp"
 
 // Array-based queue implementation
-template <typename T>
-class AQueue : public Queue<T>
+template <typename E>
+class AQueue : public Queue<E>
 {
 private:
     static const int defaultSize = 10;
     int maxSize;  // Maximum size of queue
     int front;    // Index of front element
     int rear;     // Index of rear element
-    T *listArray; // Array holding queue elements
+    E *listArray; // Array holding queue elements
     void expand()
     {
         // Reallocating memory to store more elements
-        T *tmp = new T[2 * maxSize - 1];
+        E *tmp = new E[2 * maxSize - 1];
 
         for (int i = 1; i < maxSize; i++)
         {
@@ -30,7 +30,7 @@ private:
     /*void expand()
     {
         // Reallocating memory to store more elements
-        T *tmp = new T[2 * (maxSize - 1) + 1];
+        E *tmp = new E[2 * (maxSize - 1) + 1];
 
         for (int i = front;; i++)
         {
@@ -53,7 +53,7 @@ public:
         maxSize = size + 1;
         rear = 0;
         front = 1;
-        listArray = new T[maxSize];
+        listArray = new E[maxSize];
     }
     ~AQueue() { delete[] listArray; } // Destructor
     void clear()
@@ -62,9 +62,9 @@ public:
         delete[] listArray;
         rear = 0;
         front = 1;
-        listArray = new T[maxSize];
+        listArray = new E[maxSize];
     }
-    void enqueue(const T &it)
+    void enqueue(const E &it)
     { // Put "it" in queue
         if (length() == maxSize - 1)
         {
@@ -73,10 +73,10 @@ public:
         rear = (rear + 1) % maxSize; // Circular increment
         listArray[rear] = it;
     }
-    T dequeue()
+    E dequeue()
     { // Take element out
         Assert(length() != 0, "Queue is empty");
-        T it = listArray[front];
+        E it = listArray[front];
         front = (front + 1) % maxSize; // Circular increment
         return it;
     }
@@ -84,20 +84,20 @@ public:
     {
         return ((rear + maxSize) - front + 1) % maxSize;
     }
-    const T &frontValue() const
+    const E &frontValue() const
     { // Get front value
         Assert(length() != 0, "Queue is empty");
         return listArray[front];
     }
-    const T &rearValue() const
+    const E &rearValue() const
     { // Get front value
         Assert(length() != 0, "Queue is empty");
         return listArray[rear];
     }
-    const T leaveQueue()
+    const E leaveQueue()
     {
         Assert(length() != 0, "Queue is empty");
-        T tmp = listArray[rear];
+        E tmp = listArray[rear];
         rear = (rear - 1 + maxSize) % maxSize; // Circular decrement
         return tmp;
     }
