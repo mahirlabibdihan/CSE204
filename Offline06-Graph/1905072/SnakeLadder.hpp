@@ -148,7 +148,7 @@ private:
     }
 };
 /*
-3 types of squares.
+2 types of squares.
 1. No starting point of snake/ladder
     - We can go to next n squares from this square (Using loop. Need to roll die.)
 2. Starting point of snake/ladder
