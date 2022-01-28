@@ -1,0 +1,7 @@
+Time,Merge Sort,Quicksort,Randomized Quicksort,Insertion Sort,Quicksort with sorted input,Randomized Quicksort with sorted input,STL sort() function
+5,0,0,0,0,0,0,0
+10,0,0,0,0,0,0,0
+100,0,0,0,0,0,0,0.10005
+1000,0,0.25005,0.4054,2.81215,4.6988,0,0
+10000,2.09915,1.9033,1.5552,246.626,424.507,1.7012,1.81455
+100000,25.3962,19.9474,21.905,24465.4,15247.4,15.5574,20.7167
