@@ -9,22 +9,19 @@ string backtrack(int dp[][51], string s1, int s1_size, int s2_size)
     // O(s1_size+s2_size)
     while (k > 0)
     {
-        if (dp[i][j] > dp[i][j - 1] && dp[i][j] > dp[i - 1][j])
+        if (dp[i][j] == dp[i - 1][j])
         {
-            lcs[--k] = s1[i - 1];
             i--;
+        }
+        else if (dp[i][j] == dp[i][j - 1])
+        {
             j--;
         }
         else
         {
-            if (dp[i][j] == dp[i - 1][j])
-            {
-                i--;
-            }
-            else
-            {
-                j--;
-            }
+            lcs[--k] = s1[i - 1];
+            i--;
+            j--;
         }
     }
     return lcs;
