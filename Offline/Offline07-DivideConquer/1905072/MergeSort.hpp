@@ -25,6 +25,7 @@ namespace Merge
         {
             *i++ = *k++;
         }
+        delete[] mergedArray;
     }
     template <typename E, typename Comp>
     void divide(E begin, E end)
